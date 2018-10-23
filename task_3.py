@@ -12,7 +12,7 @@ def compute(dataset):
              '2004', '2005', '2006', '2007', '2008', '2009', '2010',
              '2011', '2012', '2013', '2014', '2015', '2016', '2017',
              '2018']
-    lastFourYears = ['2014', '2015', '2016','2017']
+    lastFourYears = ['2014', '2015', '2016','2017', '2018']
     uniqueIDInfo = {}
     bankInfo = {}
     cbsa = {}
@@ -43,14 +43,10 @@ def compute(dataset):
         if (uniqueIDs[j] in bankYearsMissing):           
             print(uniqueIDInfo[uniqueIDs[j]] + ': ' + bankYearsMissing[uniqueIDs[j]])
 
-## The code below doesn't work. It's supposed to find the banks
-## that have dropped out of the program.
-            
-    for m in range(0, len(uniqueIDs)):
-        if (uniqueIDs[m] in bankYearsMissing):
-            if set(lastFourYears).issubset(set(bankYearsMissing[uniqueIDs[m]])):
-                banksDropped[uniqueIDs[m]] = uniqueIDInfo[uniqueIDs[m]]
-                print(uniqueIDs[m] + ': ' + banksDropped[uniqueIDs[m]])
+    for ID in bankYearsMissing.keys():
+        if ((bankYearsMissing[ID].find('2014')!=-1) and (bankYearsMissing[ID].find('2015')!=-1)  and (bankYearsMissing[ID].find('2016')!=-1) and (bankYearsMissing[ID].find('2017')!=-1) and (bankYearsMissing[ID].find('2018')!=-1)):
+            banksDropped[ID] = uniqueIDInfo[ID]
+            print(banksDropped[ID])
     
 def main():
     dataset = sys.argv[1]
